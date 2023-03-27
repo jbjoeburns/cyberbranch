@@ -52,8 +52,8 @@ export default class Pet {
         document.getElementById('pet-status-name').textContent = this.name;
         
         // Update the status bar
-        (this.health.value > 0) ? this.health.value -= 10 : this.health.value = this.kill();
-        (this.hunger.value > 0) ? this.hunger.value += 5 : this.hunger.value = this.kill();
+        (this.health.value > 0) ? this.health.value -= 10 : this.kill();
+        (this.hunger.value > 0) ? this.hunger.value += 5 : this.kill();
 
         this.status(this.health.value, this.health.max, 'pet-health');
         this.status(this.hunger.value, this.hunger.max, 'pet-hunger');
