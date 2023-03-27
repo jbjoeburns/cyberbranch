@@ -52,11 +52,18 @@ export default class Pet {
         document.getElementById('pet-status-name').textContent = this.name;
         
         // Update the status bar
-        (this.health.value > 0) ? this.health.value -= 10 : this.health.value = this.health.max;
-        (this.hunger.value > 0) ? this.hunger.value -= 5 : this.hunger.value = this.hunger.max;
+        (this.health.value > 0) ? this.health.value -= 10 : this.health.value = this.kill();
+        (this.hunger.value > 0) ? this.hunger.value += 5 : this.hunger.value = this.kill();
 
         this.status(this.health.value, this.health.max, 'pet-health');
         this.status(this.hunger.value, this.hunger.max, 'pet-hunger');
+        
+        if (this.recentlyAte = true) {
+            this.recentlyAte = false;
+            this.defecate();
+        }
+        
+        
         this.petUpdate();
     }
 
@@ -65,10 +72,11 @@ export default class Pet {
     }
 
     eat() {
-        if (this.hunger > 40) {
-            this.hunger -= 40;
+        document.getElementById('pet-speech').textContent = `${this.name} ate!`;
+        if (this.hunger.value > 40) {
+            this.hunger.value -= 40;
         } else {
-            this.hunger = 0;
+            this.health.max;
         }
         // can put line here to change text in the HTML saying that the pet ate
         // for example --->  petMessage.textContent = `${this.name} ate!)`;
@@ -76,7 +84,7 @@ export default class Pet {
     }
 
     play() {
-        console.log("playing test");
+        document.getElementById('pet-speech').textContent = `${this.name} played around!`;
         if (this.happiness < 80) {
             this.happiness += 20;
         } else {
@@ -86,11 +94,13 @@ export default class Pet {
     }
 
     clean() {
+        document.getElementById('pet-speech').textContent = `${this.name} had a bath!`;
         this.hygiene = 100;
         this.poop = 0;
     }
 
     #sleep() {
+        document.getElementById('pet-speech').textContent = `${this.name} is sleeping...`;
         this.asleep = true;
         document.getElementById("pet-image").src = this.sleepImg;
         setTimeout(() => {
@@ -103,17 +113,15 @@ export default class Pet {
     #defecate() {
         // random time after eating pet will defecate, will increase dirtiness levels
         // put an if statement in the tick handler that checks each tick if recentlyAte = true and calls this method if that's the case
+        document.getElementById('pet-speech').textContent = `${this.name} pooped!`;
         setTimeout(() => {
             this.poop++;
         }, (Math.floor((Math.random() * 20000) + 20000)));
 
     }
-
+    
     #kill() {
-        if (health === 0) {
-            // call HTML element that tells player the game is over
-        }
-
+        alert(`${this.name} died :(`);
     }
 
     status(value, max, name) {
